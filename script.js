@@ -2,7 +2,7 @@
   "use strict";
 
   // ------- Configuration -------
-  const SERVICE_NAME = "Medical Face and Neck";
+  const SERVICE_NAME = "Medical Face and Neck Double Lifting RF";
   const SERVICE_DURATION_MIN = 60;
 
   // GHL credentials
@@ -281,8 +281,8 @@
         lastName: lastName || '-',
         email,
         phone,
-        source: 'Opal MD - Medical Face and Neck',
-        tags: ['Medical Face and Neck'],
+        source: 'Opal MD - Medical Face and Neck Double Lifting RF',
+        tags: ['Medical Face and Neck Double Lifting RF'],
       });
       const contactId = contactRes.contact?.id || contactRes.id;
 
@@ -295,7 +295,7 @@
         assignedUserId: GHL.userId,
         startTime:      isoInTz(start, BUSINESS_TZ),
         endTime:        isoInTz(end,   BUSINESS_TZ),
-        title:          `${name} — Medical Face and Neck`,
+        title:          `${name} — Medical Face and Neck Double Lifting RF`,
         selectedTimezone: BUSINESS_TZ,
       });
 
