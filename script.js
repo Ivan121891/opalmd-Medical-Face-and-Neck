@@ -2,13 +2,13 @@
   "use strict";
 
   // ------- Configuration -------
-  const SERVICE_NAME = "Bye Bye Hyperpigmentation";
+  const SERVICE_NAME = "Medical Face and Neck";
   const SERVICE_DURATION_MIN = 60;
 
   // GHL credentials
   const GHL = {
     locationId: 'ctTbUc9SRPDOjYpRK3CU',
-    calendarId: 'm9XThz5drJrtaQurwmXz',
+    calendarId: '6bxu9nOwZL6qCrUhOzQ5',
     userId:     'I4T6Q498xbtTptEBZkP8',
     apiKey:     'pit-736c05da-50ac-43f5-8665-bf47b366b14c',
     apiBase:    'https://services.leadconnectorhq.com',
@@ -281,8 +281,8 @@
         lastName: lastName || '-',
         email,
         phone,
-        source: 'Opal MD - Bye Bye Hyperpigmentation',
-        tags: ['Bye Bye Hyperpigmentation'],
+        source: 'Opal MD - Medical Face and Neck',
+        tags: ['Medical Face and Neck'],
       });
       const contactId = contactRes.contact?.id || contactRes.id;
 
@@ -295,7 +295,7 @@
         assignedUserId: GHL.userId,
         startTime:      isoInTz(start, BUSINESS_TZ),
         endTime:        isoInTz(end,   BUSINESS_TZ),
-        title:          `${name} — Bye Bye Hyperpigmentation`,
+        title:          `${name} — Medical Face and Neck`,
         selectedTimezone: BUSINESS_TZ,
       });
 
