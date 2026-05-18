@@ -17,15 +17,16 @@
 
   const BUSINESS_TZ = "America/Los_Angeles";
 
-  // Generate 1-hr slots from 9 AM to 5 PM
+  // Build specific time slots
   function buildAllSlots() {
-    const slots = [];
-    for (let h = 9; h <= 17; h++) {
-      const ampm = h < 12 ? 'AM' : 'PM';
-      const display = h === 0 ? 12 : h > 12 ? h - 12 : h;
-      slots.push({ label: display + ':00 ' + ampm, hour: h, minute: 0 });
-    }
-    return slots;
+    return [
+      { label: '10:00 AM', hour: 10, minute: 0 },
+      { label: '11:15 AM', hour: 11, minute: 15 },
+      { label: '12:30 PM', hour: 12, minute: 30 },
+      { label: '2:15 PM',  hour: 14, minute: 15 },
+      { label: '3:30 PM',  hour: 15, minute: 30 },
+      { label: '4:45 PM',  hour: 16, minute: 45 },
+    ];
   }
   let ALL_SLOTS = buildAllSlots();
 
