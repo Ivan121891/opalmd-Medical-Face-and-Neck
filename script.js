@@ -17,6 +17,8 @@
     version:    '2021-07-28',
   };
 
+  const DEDICATED_PIXEL_ID = '1553108116391961'; // Opal Pixel (opalmd unique)
+
   const BUSINESS_TZ = "America/Los_Angeles";
 
   // Build specific time slots
@@ -223,9 +225,20 @@
 
   function track(event, params) {
     if (typeof window.fbq === "function") {
-      try { window.fbq("track", event, params || {}); } catch (_) {}
+      try { window.fbq("trackSingle", "1178133073434960", event, params || {}); } catch (_) {}
     }
   }
+  function trackDedicated(event, params, eventId) {
+    if (typeof window.fbq === "function") {
+      try {
+        var opts = eventId ? { eventID: eventId } : {};
+        window.fbq("trackSingle", DEDICATED_PIXEL_ID, event, params || {}, opts);
+      } catch (_) {}
+    }
+  }
+  (function fireViewContent() {
+    trackDedicated("ViewContent", { content_name: SERVICE_NAME });
+  })();
 
   // ------- Back buttons -------
   document.querySelectorAll(".back-btn").forEach((btn) => {
@@ -276,6 +289,10 @@
     const [firstName, ...rest] = name.split(/\s+/);
     const lastName = rest.join(" ");
 
+    // One eventId per conversion -- shared by browser dedicated pixel (eventID)
+    // and server CAPI (event_id) so Meta can dedup. In scope for the whole flow.
+    const eventId = 'sched_' + Date.now() + '_' + Math.random().toString(36).slice(2);
+
     try {
       // 1) Upsert contact in GHL
       // Persist the lead + chosen slot BEFORE any GHL call (non-blocking).
@@ -295,6 +312,7 @@
             fbclid: (new URLSearchParams(location.search)).get('fbclid') || undefined,
             fbp: (document.cookie.match(/_fbp=([^;]+)/) || [])[1],
             fbc: (document.cookie.match(/_fbc=([^;]+)/) || [])[1],
+            eventId: eventId,
             test: TEST,
           }),
         });
@@ -340,6 +358,7 @@
 
       track("Lead", { content_name: SERVICE_NAME });
       if (!TEST && bookingStatus === 'success') track("Schedule", { content_name: SERVICE_NAME });
+      if (!TEST && bookingStatus === 'success') trackDedicated("Schedule", { content_name: SERVICE_NAME }, eventId);
 
       renderConfirmation({
         service: SERVICE_NAME,
