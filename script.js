@@ -126,11 +126,8 @@
 
     const cells = [];
     const cursor = new Date(today);
-    while (cells.length < 6) {
-      const dow = cursor.getDay();
-      if (dow !== 6) {
-        cells.push(new Date(cursor));
-      }
+    for (let i = 0; i < 6; i++) {
+      cells.push(new Date(cursor));
       cursor.setDate(cursor.getDate() + 1);
     }
 
